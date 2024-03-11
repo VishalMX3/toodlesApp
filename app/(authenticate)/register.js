@@ -12,12 +12,41 @@ import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import axios from "axios";
 
 const register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
+  const handleRegister = () => {
+    const user = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post("http://localhost:3000/register", user)
+      .then((response) => {
+        console.log(response);
+        Alert.alert(
+          "Registration successfull",
+          "You have been registered succesfully"
+        );
+        setEmail("");
+        setPassword("");
+        setName("");
+      })
+      .catch((error) => {
+        Alert.alert(
+          "Registration failed",
+          "an error ocurred during registration"
+        );
+        console.log("error", error);
+      });
+  };
 
   return (
     <SafeAreaView
@@ -129,7 +158,7 @@ const register = () => {
           <View style={{ marginTop: 60 }} />
 
           <Pressable
-            // onPress={handleRegister}
+            onPress={handleRegister}
             style={{
               width: 200,
               backgroundColor: "#6699CC",

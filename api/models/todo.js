@@ -1,31 +1,29 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  name: {
+const todoSchema = new mongoose.Schema({
+  title: {
     type: String,
     required: true,
   },
-  email: {
+  status: {
+    type: String,
+    enum: ["pending", "completed"],
+    default: "pending",
+  },
+  category: {
     type: String,
     required: true,
-    unique: true,
   },
-  password: {
+  dueDate: {
     type: String,
     required: true,
   },
-  todos: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Todo",
-    },
-  ],
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const Todo = mongoose.model("Todo", todoSchema);
 
-module.exports = User;
+module.exports = Todo;
