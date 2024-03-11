@@ -48,9 +48,28 @@ const index = () => {
       todo: "finish assignments",
     },
   ];
-  const addTodo = () => {
-    setModalVisible(false);
-    setTodo("");
+  const addTodo = async () => {
+    try {
+      const todoData = {
+        title: todo,
+        category: category,
+      };
+
+      axios
+        .post("http://localhost:3000/todos/65ef36abe5bc46da94e85eeb", todoData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+
+      // await getUserTodos();
+      setModalVisible(false);
+      setTodo("");
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -246,7 +265,7 @@ const index = () => {
           >
             {suggestions?.map((item, index) => (
               <Pressable
-                // onPress={() => setTodo(item?.todo)}
+                onPress={() => setTodo(item?.todo)}
                 style={{
                   backgroundColor: "#F0F8FF",
                   paddingHorizontal: 10,

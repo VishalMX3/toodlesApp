@@ -11,6 +11,7 @@ const port = 3000;
 const cors = require("cors");
 app.use(cors());
 
+const moment = require("moment");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -73,5 +74,32 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.log("Login failed", error);
     res.status(500).json({ message: "Login failed" });
+  }
+});
+
+app.post("/todos/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { title, category } = req.body;
+
+    const newTodo = new Todo({
+      title,
+      category,
+      dueDate: moment().format("YYYY-MM-DD"),
+    });
+
+    await newTodo.save();
+
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+    }
+
+    user?.todos.push(newTodo._id);
+    await user.save();
+
+    res.status(200).json({ message: "Todo added sucessfully", todo: newTodo });
+  } catch (error) {
+    res.status(200).json({ message: "Todo not added" });
   }
 });
