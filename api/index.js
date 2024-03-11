@@ -103,3 +103,42 @@ app.post("/todos/:userId", async (req, res) => {
     res.status(200).json({ message: "Todo not added" });
   }
 });
+
+app.get("/users/:userId/todos", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await User.findById(userId).populate("todos");
+    if (!user) {
+      return res.status(404).json({ error: "user not found" });
+    }
+
+    res.status(200).json({ todos: user.todos });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
+app.patch("/todos/:todoId/complete", async (req, res) => {
+  try {
+    const todoId = req.params.todoId;
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      todoId,
+      {
+        status: "completed",
+      },
+      { new: true }
+    );
+
+    if (!updatedTodo) {
+      return res.status(404).json({ error: "Todo not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Todo marked as complete", todo: updatedTodo });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});

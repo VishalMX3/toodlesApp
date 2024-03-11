@@ -6,22 +6,30 @@ import {
   Text,
   TextInput,
   View,
+  ViewBase,
 } from "react-native";
-import React, { useState } from "react";
-import { Feather } from "@expo/vector-icons";
-import { BottomModal, ModalContent, ModalTitle } from "react-native-modals";
+import React, { useState, useEffect } from "react";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import { BottomModal } from "react-native-modals";
+import { ModalTitle, ModalContent } from "react-native-modals";
 import { SlideAnimation } from "react-native-modals";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { MaterialIcons } from "@expo/vector-icons";
 
+import moment from "moment";
+// import { useRouter } from "expo-router";
+
 const index = () => {
   const [todos, setTodos] = useState([]);
-  // const today = moment().format("MMM Do");
+  const today = moment().format("MMM Do");
   const [isModalVisible, setModalVisible] = useState(false);
   const [category, setCategory] = useState("All");
   const [todo, setTodo] = useState("");
+  const [pendingTodos, setPendingTodos] = useState([]);
+  const [completedTodos, setCompletedTodos] = useState([]);
+  const [marked, setMarked] = useState(false);
   const suggestions = [
     {
       id: "0",
@@ -64,13 +72,57 @@ const index = () => {
           console.log("error", error);
         });
 
-      // await getUserTodos();
+      await getUserTodos();
+      setTimeout(() => {}, 3000);
       setModalVisible(false);
       setTodo("");
     } catch (error) {
       console.log("error", error);
     }
   };
+
+  useEffect(() => {
+    getUserTodos();
+  }, [marked, isModalVisible]);
+
+  const getUserTodos = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/users/65ef36abe5bc46da94e85eeb/todos`
+      );
+
+      console.log(response.data.todos);
+      setTodos(response.data.todos);
+
+      const fetchedTodos = response.data.todos || [];
+      const pending = fetchedTodos.filter(
+        (todo) => todo.status !== "completed"
+      );
+
+      const completed = fetchedTodos.filter(
+        (todo) => todo.status === "completed"
+      );
+
+      setPendingTodos(pending);
+      setCompletedTodos(completed);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const markTodoAsCompleted = async (todoId) => {
+    try {
+      setMarked(true);
+      const response = await axios.patch(
+        `http://localhost:3000/todos/${todoId}/complete`
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  console.log("completed", completedTodos);
+  console.log("pending", pendingTodos);
 
   return (
     <>
@@ -128,7 +180,117 @@ const index = () => {
       <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         <View style={{ padding: 10 }}>
           {todos?.length > 0 ? (
-            <View></View>
+            <View>
+              {pendingTodos?.length > 0 && <Text>Tasks to Do! {today}</Text>}
+
+              {pendingTodos?.map((item, index) => (
+                <Pressable
+                  // onPress={() => {
+                  //   router?.push({
+                  //     pathname: "/home/info",
+                  //     params: {
+                  //       id: item._id,
+                  //       title: item?.title,
+                  //       category: item?.category,
+                  //       createdAt: item?.createdAt,
+                  //       dueDate: item?.dueDate,
+                  //     },
+                  //   });
+                  // }}
+                  style={{
+                    backgroundColor: "#E0E0E0",
+                    padding: 10,
+                    borderRadius: 7,
+                    marginVertical: 10,
+                  }}
+                  key={index}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
+                  >
+                    <Entypo
+                      onPress={() => markTodoAsCompleted(item?._id)}
+                      name="circle"
+                      size={18}
+                      color="black"
+                    />
+                    <Text style={{ flex: 1 }}>{item?.title}</Text>
+                    <Feather name="flag" size={20} color="black" />
+                  </View>
+                </Pressable>
+              ))}
+
+              {completedTodos?.length > 0 && (
+                <View>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: 10,
+                    }}
+                  >
+                    <Image
+                      style={{ width: 100, height: 100 }}
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/128/6784/6784655.png",
+                      }}
+                    />
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5,
+                      marginVertical: 10,
+                    }}
+                  >
+                    <Text>Completed Tasks</Text>
+                    <MaterialIcons
+                      name="arrow-drop-down"
+                      size={24}
+                      color="black"
+                    />
+                  </View>
+
+                  {completedTodos?.map((item, index) => (
+                    <Pressable
+                      style={{
+                        backgroundColor: "#E0E0E0",
+                        padding: 10,
+                        borderRadius: 7,
+                        marginVertical: 10,
+                      }}
+                      key={index}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10,
+                        }}
+                      >
+                        <FontAwesome name="circle" size={18} color="gray" />
+                        <Text
+                          style={{
+                            flex: 1,
+                            textDecorationLine: "line-through",
+                            color: "gray",
+                          }}
+                        >
+                          {item?.title}
+                        </Text>
+                        <Feather name="flag" size={20} color="gray" />
+                      </View>
+                    </Pressable>
+                  ))}
+                </View>
+              )}
+            </View>
           ) : (
             <View
               style={{
