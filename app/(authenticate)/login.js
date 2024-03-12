@@ -39,12 +39,14 @@ const login = () => {
       password: password,
     };
 
-    axios.post("http://localhost:3000/login", user).then((response) => {
-      const token = response.data.token;
-      console.log("token", token);
-      AsyncStorage.setItem("authToken", token);
-      router.replace("/(tabs)/home");
-    });
+    axios
+      .post("https://toodlesapp.onrender.com/login", user)
+      .then((response) => {
+        const token = response.data.token;
+        console.log("token", token);
+        AsyncStorage.setItem("authToken", token);
+        router.replace("/(tabs)/home");
+      });
   };
 
   return (

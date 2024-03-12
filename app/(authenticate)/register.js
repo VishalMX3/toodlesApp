@@ -28,7 +28,7 @@ const register = () => {
     };
 
     axios
-      .post("http://localhost:3000/register", user)
+      .post("https://toodlesapp.onrender.com/register", user)
       .then((response) => {
         console.log(response);
         Alert.alert(

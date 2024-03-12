@@ -65,7 +65,10 @@ const index = () => {
       };
 
       axios
-        .post("http://localhost:3000/todos/65ef36abe5bc46da94e85eeb", todoData)
+        .post(
+          "https://toodlesapp.onrender.com/todos/65ef36abe5bc46da94e85eeb",
+          todoData
+        )
         .then((response) => {
           console.log(response);
         })
@@ -89,7 +92,7 @@ const index = () => {
   const getUserTodos = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/users/65ef36abe5bc46da94e85eeb/todos`
+        `https://toodlesapp.onrender.com/users/65ef36abe5bc46da94e85eeb/todos`
       );
 
       console.log(response.data.todos);
@@ -115,7 +118,7 @@ const index = () => {
     try {
       setMarked(true);
       const response = await axios.patch(
-        `http://localhost:3000/todos/${todoId}/complete`
+        `https://toodlesapp.onrender.com/todos/${todoId}/complete`
       );
       console.log(response.data);
     } catch (error) {
