@@ -7,7 +7,7 @@ const User = require("./models/user");
 const Todo = require("./models/todo");
 
 const app = express();
-const port = 3000;
+
 const cors = require("cors");
 app.use(cors());
 
@@ -26,7 +26,7 @@ mongoose
     console.log("Error connectin to mongoDb", error);
   });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running on port 3000");
 });
 
