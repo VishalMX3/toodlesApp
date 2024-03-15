@@ -43,7 +43,6 @@ export const toggleTodo = async (todoId, dispatch) => {
   dispatch(toggleTodoStart());
 
   try {
-    // setMarked(true);
     const response = await axios.patch(
       `https://toodlesapp.onrender.com/todos/${todoId}/complete`
     );

@@ -25,14 +25,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 const index = () => {
   const router = useRouter();
-  // const [todos, setTodos] = useState([]);
   const today = moment().format("MMM Do");
   const [isModalVisible, setModalVisible] = useState(false);
   const [category, setCategory] = useState("All");
   const [todo, setTodo] = useState("");
   const [pendingTodos, setPendingTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
-  const [marked, setMarked] = useState(false);
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
 
@@ -74,34 +72,6 @@ const index = () => {
     setTodo("");
   };
 
-  // const addTodo = async () => {
-  //   try {
-  //     const todoData = {
-  //       title: todo,
-  //       category: category,
-  //     };
-
-  //     axios
-  //       .post(
-  //         "https://toodlesapp.onrender.com/todos/65ef36abe5bc46da94e85eeb",
-  //         todoData
-  //       )
-  //       .then((response) => {
-  //         console.log(response);
-  //       })
-  //       .catch((error) => {
-  //         console.log("error", error);
-  //       });
-
-  //     await getUserTodos();
-  //     setTimeout(() => {}, 3000);
-  //     setModalVisible(false);
-  //     setTodo("");
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
-
   useEffect(() => {
     getTodos(dispatch);
   }, [dispatch]);
@@ -117,18 +87,6 @@ const index = () => {
     setCompletedTodos(completed);
   }, [todos]);
 
-  const markTodoAsCompleted = (todoId) => {
-    toggleTodo(todoId, dispatch);
-    // try {
-    //   setMarked(true);
-    //   const response = await axios.patch(
-    //     `https://toodlesapp.onrender.com/todos/${todoId}/complete`
-    //   );
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.log("error", error);
-    // }
-  };
   console.log("completed", completedTodos);
   console.log("pending", pendingTodos);
 
@@ -221,7 +179,7 @@ const index = () => {
                     }}
                   >
                     <Entypo
-                      onPress={() => markTodoAsCompleted(item?._id)}
+                      onPress={() => toggleTodo(item?._id, dispatch)}
                       name="circle"
                       size={18}
                       color="black"
