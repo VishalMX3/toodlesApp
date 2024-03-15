@@ -176,3 +176,23 @@ app.get("/todos/count", async (req, res) => {
     res.status(500).json({ error: "Network error" });
   }
 });
+
+app.delete("/todos/:todoId/delete", async (req, res) => {
+  try {
+    console.log("entering delete");
+    const todoId = req.params.todoId;
+
+    const deletedTodo = await Todo.findByIdAndDelete(todoId);
+    if (!deletedTodo) {
+      return res.status(404).json({ error: "Todo not found" });
+    }
+
+    res.status(200).json({ message: "Todo deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Network error" });
+  }
+});
+
+// app.get("/pingg", (req, res) => {
+//   res.status(200).json({ message: "pong" });
+// });

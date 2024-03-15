@@ -54,20 +54,19 @@ export const todoSlice = createSlice({
       state.error = true;
     },
 
-    // addTodo: (state, action) => {
-    //   state.todos.push(action.payload);
-    // },
-    // markTodoAsCompleted: (state, action) => {
-    //   const { todoId } = action.payload;
-    //   const todoIndex = state.todos.findIndex((todo) => todo.id === todoId);
-    //   if (todoIndex !== -1) {
-    //     state.todos[todoIndex].status = "completed";
-    //   }
-    // },
-    // deleteTodo: (state, action) => {
-    //   const { todoId } = action.payload;
-    //   state.todos = state.todos.filter((todo) => todo.id !== todoId);
-    // },
+    //Delete
+    deleteTodoStart: (state) => {
+      state.isFetching = true;
+      state.error = false;
+    },
+    deleteTodoSuccess: (state, action) => {
+      state.isFetching = false;
+      state.todos = state.todos.filter((todo) => todo._id !== action.payload);
+    },
+    deleteTodoFailure: (state, action) => {
+      state.isFetching = false;
+      state.error = true;
+    },
   },
 });
 
@@ -81,6 +80,9 @@ export const {
   toggleTodoStart,
   toggleTodoSuccess,
   toggleTodoFailure,
+  deleteTodoStart,
+  deleteTodoSuccess,
+  deleteTodoFailure,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

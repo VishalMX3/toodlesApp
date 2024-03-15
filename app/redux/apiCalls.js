@@ -8,6 +8,9 @@ import {
   toggleTodoStart,
   toggleTodoSuccess,
   toggleTodoFailure,
+  deleteTodoStart,
+  deleteTodoSuccess,
+  deleteTodoFailure,
 } from "./todoRedux";
 import axios from "axios";
 
@@ -50,5 +53,19 @@ export const toggleTodo = async (todoId, dispatch) => {
     dispatch(toggleTodoSuccess(response.data.todo));
   } catch (error) {
     dispatch(toggleTodoFailure());
+  }
+};
+
+export const deleteTodo = async (todoId, dispatch) => {
+  dispatch(deleteTodoStart());
+
+  try {
+    const response = await axios.delete(
+      `https://localhost:3000/${todoId}/delete`
+    );
+    console.log(response.data);
+    dispatch(deleteTodoSuccess(response.data.todo));
+  } catch (error) {
+    dispatch(deleteTodoFailure());
   }
 };
