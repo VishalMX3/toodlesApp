@@ -29,7 +29,7 @@ export const todoSlice = createSlice({
     },
     addTodoSuccess: (state, action) => {
       state.isFetching = false;
-      state.todos.push(state.action.payload);
+      state.todos.push(action.payload);
     },
     addTodoFailure: (state, action) => {
       state.isFetching = false;

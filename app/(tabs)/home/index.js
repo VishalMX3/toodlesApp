@@ -20,10 +20,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import moment from "moment";
 import { useRouter } from "expo-router";
+import { addTodo, getTodos } from "../../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const index = () => {
   const router = useRouter();
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]);
   const today = moment().format("MMM Do");
   const [isModalVisible, setModalVisible] = useState(false);
   const [category, setCategory] = useState("All");
@@ -31,6 +33,9 @@ const index = () => {
   const [pendingTodos, setPendingTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [marked, setMarked] = useState(false);
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos.todos);
+
   const suggestions = [
     {
       id: "0",
@@ -57,62 +62,60 @@ const index = () => {
       todo: "finish assignments",
     },
   ];
-  const addTodo = async () => {
-    try {
-      const todoData = {
-        title: todo,
-        category: category,
-      };
 
-      axios
-        .post(
-          "https://toodlesapp.onrender.com/todos/65ef36abe5bc46da94e85eeb",
-          todoData
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+  const handleAddTodo = () => {
+    const todoData = {
+      title: todo,
+      category: category,
+    };
 
-      await getUserTodos();
-      setTimeout(() => {}, 3000);
-      setModalVisible(false);
-      setTodo("");
-    } catch (error) {
-      console.log("error", error);
-    }
+    addTodo(todoData, dispatch);
+    setModalVisible(false);
+    setTodo("");
   };
+
+  // const addTodo = async () => {
+  //   try {
+  //     const todoData = {
+  //       title: todo,
+  //       category: category,
+  //     };
+
+  //     axios
+  //       .post(
+  //         "https://toodlesapp.onrender.com/todos/65ef36abe5bc46da94e85eeb",
+  //         todoData
+  //       )
+  //       .then((response) => {
+  //         console.log(response);
+  //       })
+  //       .catch((error) => {
+  //         console.log("error", error);
+  //       });
+
+  //     await getUserTodos();
+  //     setTimeout(() => {}, 3000);
+  //     setModalVisible(false);
+  //     setTodo("");
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
   useEffect(() => {
-    getUserTodos();
-  }, [marked, isModalVisible]);
+    getTodos(dispatch);
+  }, [dispatch]);
 
-  const getUserTodos = async () => {
-    try {
-      const response = await axios.get(
-        `https://toodlesapp.onrender.com/users/65ef36abe5bc46da94e85eeb/todos`
-      );
+  useEffect(() => {
+    const fetchedTodos = todos || [];
+    const pending = fetchedTodos.filter((todo) => todo.status !== "completed");
+    const completed = fetchedTodos.filter(
+      (todo) => todo.status === "completed"
+    );
 
-      console.log(response.data.todos);
-      setTodos(response.data.todos);
-
-      const fetchedTodos = response.data.todos || [];
-      const pending = fetchedTodos.filter(
-        (todo) => todo.status !== "completed"
-      );
-
-      const completed = fetchedTodos.filter(
-        (todo) => todo.status === "completed"
-      );
-
-      setPendingTodos(pending);
-      setCompletedTodos(completed);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+    setPendingTodos(pending);
+    setCompletedTodos(completed);
+  }, [todos]);
 
   const markTodoAsCompleted = async (todoId) => {
     try {
@@ -368,7 +371,12 @@ const index = () => {
                 flex: 1,
               }}
             />
-            <Ionicons onPress={addTodo} name="send" size={24} color="#007FFF" />
+            <Ionicons
+              onPress={handleAddTodo}
+              name="send"
+              size={24}
+              color="#007FFF"
+            />
           </View>
 
           <Text>Choose Category</Text>
