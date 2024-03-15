@@ -61,7 +61,7 @@ export const deleteTodo = async (todoId, dispatch) => {
 
   try {
     const response = await axios.delete(
-      `https://localhost:3000/${todoId}/delete`
+      `https://toodlesapp.onrender.com/todos/${todoId}/delete`
     );
     console.log(response.data);
     dispatch(deleteTodoSuccess(response.data.todo));

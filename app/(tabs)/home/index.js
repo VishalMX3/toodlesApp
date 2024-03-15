@@ -20,7 +20,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import moment from "moment";
 import { useRouter } from "expo-router";
-import { addTodo, getTodos, toggleTodo } from "../../redux/apiCalls";
+import {
+  addTodo,
+  getTodos,
+  toggleTodo,
+  deleteTodo,
+} from "../../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 
 const index = () => {
@@ -73,6 +78,7 @@ const index = () => {
   };
 
   useEffect(() => {
+    console.log("running useEffect");
     getTodos(dispatch);
   }, [dispatch]);
 
@@ -185,7 +191,15 @@ const index = () => {
                       color="black"
                     />
                     <Text style={{ flex: 1 }}>{item?.title}</Text>
-                    <Feather name="flag" size={20} color="black" />
+                    <Feather
+                      onPress={async () => {
+                        await deleteTodo(item?._id, dispatch);
+                        getTodos(dispatch);
+                      }}
+                      name="trash-2"
+                      size={20}
+                      color="black"
+                    />
                   </View>
                 </Pressable>
               ))}

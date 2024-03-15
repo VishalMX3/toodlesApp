@@ -179,7 +179,6 @@ app.get("/todos/count", async (req, res) => {
 
 app.delete("/todos/:todoId/delete", async (req, res) => {
   try {
-    console.log("entering delete");
     const todoId = req.params.todoId;
 
     const deletedTodo = await Todo.findByIdAndDelete(todoId);
