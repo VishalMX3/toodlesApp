@@ -20,7 +20,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import moment from "moment";
 import { useRouter } from "expo-router";
-import { addTodo, getTodos } from "../../redux/apiCalls";
+import { addTodo, getTodos, toggleTodo } from "../../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 
 const index = () => {
@@ -117,16 +117,17 @@ const index = () => {
     setCompletedTodos(completed);
   }, [todos]);
 
-  const markTodoAsCompleted = async (todoId) => {
-    try {
-      setMarked(true);
-      const response = await axios.patch(
-        `https://toodlesapp.onrender.com/todos/${todoId}/complete`
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.log("error", error);
-    }
+  const markTodoAsCompleted = (todoId) => {
+    toggleTodo(todoId, dispatch);
+    // try {
+    //   setMarked(true);
+    //   const response = await axios.patch(
+    //     `https://toodlesapp.onrender.com/todos/${todoId}/complete`
+    //   );
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.log("error", error);
+    // }
   };
   console.log("completed", completedTodos);
   console.log("pending", pendingTodos);

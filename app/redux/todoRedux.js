@@ -36,6 +36,24 @@ export const todoSlice = createSlice({
       state.error = true;
     },
 
+    //Toggle
+    toggleTodoStart: (state) => {
+      state.isFetching = true;
+      state.error = false;
+    },
+    toggleTodoSuccess: (state, action) => {
+      state.isFetching = false;
+      state.todos = state.todos.map((todo) =>
+        todo._id === action.payload._id
+          ? { ...todo, status: "completed" }
+          : todo
+      );
+    },
+    toggleTodoFailure: (state, action) => {
+      state.isFetching = false;
+      state.error = true;
+    },
+
     // addTodo: (state, action) => {
     //   state.todos.push(action.payload);
     // },
@@ -60,6 +78,9 @@ export const {
   addTodoStart,
   addTodoSuccess,
   addTodoFailure,
+  toggleTodoStart,
+  toggleTodoSuccess,
+  toggleTodoFailure,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

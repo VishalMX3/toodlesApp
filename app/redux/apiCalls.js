@@ -5,6 +5,9 @@ import {
   addTodoStart,
   addTodoSuccess,
   addTodoFailure,
+  toggleTodoStart,
+  toggleTodoSuccess,
+  toggleTodoFailure,
 } from "./todoRedux";
 import axios from "axios";
 
@@ -33,5 +36,20 @@ export const addTodo = async (todoData, dispatch) => {
     dispatch(addTodoSuccess(res.data.todo));
   } catch (error) {
     dispatch(addTodoFailure());
+  }
+};
+
+export const toggleTodo = async (todoId, dispatch) => {
+  dispatch(toggleTodoStart());
+
+  try {
+    // setMarked(true);
+    const response = await axios.patch(
+      `https://toodlesapp.onrender.com/todos/${todoId}/complete`
+    );
+    console.log(response.data);
+    dispatch(toggleTodoSuccess(response.data.todo));
+  } catch (error) {
+    dispatch(toggleTodoFailure());
   }
 };
