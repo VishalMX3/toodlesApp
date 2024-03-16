@@ -26,7 +26,9 @@ const login = () => {
     const checkLoginStatus = async () => {
       try {
         const token = await AsyncStorage.getItem("authToken");
-        if (token) {
+        const user = JSON.parse(await AsyncStorage.getItem("user"));
+        if (token !== null) {
+          dispatch(loginSuccess({ user, token }));
           router.replace("/(tabs)/home");
         }
       } catch (error) {
@@ -50,6 +52,7 @@ const login = () => {
         const token = response.data.token;
         console.log("token", token);
         AsyncStorage.setItem("authToken", token);
+        AsyncStorage.setItem("user", JSON.stringify(response.data.user));
         dispatch(loginSuccess(response.data));
         router.replace("/(tabs)/home");
       })
