@@ -196,7 +196,7 @@ const index = () => {
                     <Text style={{ flex: 1 }}>{item?.title}</Text>
                     <Feather
                       onPress={async () => {
-                        await deleteTodo(item?._id, dispatch);
+                        await deleteTodo(user?._id, item?._id, dispatch);
                         getTodos(user._id, dispatch);
                       }}
                       name="trash-2"

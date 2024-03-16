@@ -55,12 +55,12 @@ export const toggleTodo = async (todoId, dispatch) => {
   }
 };
 
-export const deleteTodo = async (todoId, dispatch) => {
+export const deleteTodo = async (userId, todoId, dispatch) => {
   dispatch(deleteTodoStart());
 
   try {
     const response = await axios.delete(
-      `https://toodlesapp.onrender.com/todos/${todoId}/delete`
+      `https://toodlesapp.onrender.com/todos/${userId}/${todoId}/delete`
     );
     console.log(response.data);
     dispatch(deleteTodoSuccess(response.data.todo));

@@ -186,14 +186,23 @@ app.get("/todos/count", async (req, res) => {
   }
 });
 
-app.delete("/todos/:todoId/delete", async (req, res) => {
+app.delete("/todos/:userId/:todoId/delete", async (req, res) => {
   try {
+    const userId = req.params.userId;
     const todoId = req.params.todoId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+    }
 
     const deletedTodo = await Todo.findByIdAndDelete(todoId);
     if (!deletedTodo) {
       return res.status(404).json({ error: "Todo not found" });
     }
+
+    user.todos = user.todos.filter((todo) => todo._id !== todoId);
+    await user.save();
 
     res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {
