@@ -197,7 +197,7 @@ const index = () => {
                     <Feather
                       onPress={async () => {
                         await deleteTodo(item?._id, dispatch);
-                        getTodos(dispatch);
+                        getTodos(user._id, dispatch);
                       }}
                       name="trash-2"
                       size={20}
