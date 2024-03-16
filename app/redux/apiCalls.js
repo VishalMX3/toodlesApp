@@ -12,15 +12,13 @@ import {
   deleteTodoSuccess,
   deleteTodoFailure,
 } from "./todoRedux";
-// import { loginFailure, loginSuccess, loginStart } from "./userRedux";
 import axios from "axios";
 
-export const getTodos = async (dispatch) => {
+export const getTodos = async (userId, dispatch) => {
   dispatch(getTodosStart());
   try {
-    console.log("entering try");
     const res = await axios.get(
-      "https://toodlesapp.onrender.com/users/65ef36abe5bc46da94e85eeb/todos"
+      `https://toodlesapp.onrender.com/users/${userId}/todos`
     );
     console.log(res.data);
     dispatch(getTodosSuccess(res.data.todos));
@@ -29,11 +27,11 @@ export const getTodos = async (dispatch) => {
   }
 };
 
-export const addTodo = async (todoData, dispatch) => {
+export const addTodo = async (userId, todoData, dispatch) => {
   dispatch(addTodoStart());
   try {
     const res = await axios.post(
-      "https://toodlesapp.onrender.com/todos/65ef36abe5bc46da94e85eeb",
+      `https://toodlesapp.onrender.com/todos/${userId}`,
       todoData
     );
     console.log(res.data);
@@ -70,13 +68,3 @@ export const deleteTodo = async (todoId, dispatch) => {
     dispatch(deleteTodoFailure());
   }
 };
-
-// export const login = async (dispatch, user) => {
-//   dispatch(loginStart());
-//   try {
-//     // const res = await publicRequest.post("/auth/login", user);
-//     dispatch(loginSuccess(res.data));
-//   } catch (err) {
-//     dispatch(loginFailure());
-//   }
-// };

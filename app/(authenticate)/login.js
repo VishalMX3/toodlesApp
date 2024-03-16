@@ -27,7 +27,7 @@ const login = () => {
       try {
         const token = await AsyncStorage.getItem("authToken");
         const user = JSON.parse(await AsyncStorage.getItem("user"));
-        if (token !== null) {
+        if (token !== null && user !== null) {
           dispatch(loginSuccess({ user, token }));
           router.replace("/(tabs)/home");
         }

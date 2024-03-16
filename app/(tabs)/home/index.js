@@ -38,6 +38,7 @@ const index = () => {
   const [completedTodos, setCompletedTodos] = useState([]);
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
+  const user = useSelector((state) => state.user.currentUser.user);
 
   const suggestions = [
     {
@@ -72,15 +73,17 @@ const index = () => {
       category: category,
     };
 
-    addTodo(todoData, dispatch);
+    addTodo(user._id, todoData, dispatch);
     setModalVisible(false);
     setTodo("");
   };
 
   useEffect(() => {
     console.log("running useEffect");
-    getTodos(dispatch);
-  }, [dispatch]);
+    if (user && user._id) {
+      getTodos(user._id, dispatch);
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     const fetchedTodos = todos || [];
