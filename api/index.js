@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const User = require("./models/user");
 const Todo = require("./models/todo");
+const CryptoJS = require("crypto-js");
 
 const app = express();
 
@@ -41,9 +42,10 @@ app.post("/register", async (req, res) => {
     }
 
     const newUser = new User({
-      name,
-      email,
-      password,
+      name: name,
+      email: email,
+      password: CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString(),
+      img: req.body.img,
     });
 
     await newUser.save();
@@ -64,13 +66,20 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid Email" });
     }
 
-    if (user.password !== password) {
-      return res.status(401).json({ message: "Invalide password" });
+    const hashedPassword = CryptoJS.AES.decrypt(
+      user.password,
+      process.env.PASS_SEC
+    );
+
+    const passwordInDb = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+    if (passwordInDb !== password) {
+      return res.status(401).json({ message: "Invalid password" });
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
 
-    res.status(200).json({ token });
+    res.status(200).json({ user, token });
   } catch (error) {
     console.log("Login failed", error);
     res.status(500).json({ message: "Login failed" });

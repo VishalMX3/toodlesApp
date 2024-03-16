@@ -12,6 +12,7 @@ import {
   deleteTodoSuccess,
   deleteTodoFailure,
 } from "./todoRedux";
+// import { loginFailure, loginSuccess, loginStart } from "./userRedux";
 import axios from "axios";
 
 export const getTodos = async (dispatch) => {
@@ -69,3 +70,13 @@ export const deleteTodo = async (todoId, dispatch) => {
     dispatch(deleteTodoFailure());
   }
 };
+
+// export const login = async (dispatch, user) => {
+//   dispatch(loginStart());
+//   try {
+//     // const res = await publicRequest.post("/auth/login", user);
+//     dispatch(loginSuccess(res.data));
+//   } catch (err) {
+//     dispatch(loginFailure());
+//   }
+// };

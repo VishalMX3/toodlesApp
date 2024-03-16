@@ -13,11 +13,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { loginFailure, loginSuccess, loginStart } from "../redux/userRedux";
+import { useDispatch } from "react-redux";
 
 const login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -39,13 +42,20 @@ const login = () => {
       password: password,
     };
 
+    dispatch(loginStart());
+
     axios
       .post("https://toodlesapp.onrender.com/login", user)
       .then((response) => {
         const token = response.data.token;
         console.log("token", token);
         AsyncStorage.setItem("authToken", token);
+        dispatch(loginSuccess(response.data));
         router.replace("/(tabs)/home");
+      })
+      .catch((error) => {
+        dispatch(loginFailure());
+        console.log(error);
       });
   };
 

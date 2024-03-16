@@ -38,6 +38,7 @@ const register = () => {
         setEmail("");
         setPassword("");
         setName("");
+        router.replace("/login");
       })
       .catch((error) => {
         Alert.alert(
