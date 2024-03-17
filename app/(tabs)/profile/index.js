@@ -149,7 +149,7 @@ const index = () => {
           padding: 10,
           borderRadius: 6,
           marginTop: 15,
-          height: 50,
+          height: "auto",
           alignItems: "center",
         }}
       >
