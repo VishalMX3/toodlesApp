@@ -38,6 +38,7 @@ const index = () => {
   const [completedTodos, setCompletedTodos] = useState([]);
   const dispatch = useDispatch();
   const [isToggled, setIsToggled] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const todos = useSelector((state) => state.todos.todos);
   const user = useSelector((state) => state.user.currentUser.user);
@@ -77,6 +78,7 @@ const index = () => {
 
     addTodo(user._id, todoData, dispatch);
     setModalVisible(false);
+    setCategory("All");
     setTodo("");
   };
 
@@ -89,14 +91,20 @@ const index = () => {
 
   useEffect(() => {
     const fetchedTodos = todos || [];
-    const pending = fetchedTodos.filter((todo) => todo.status !== "completed");
-    const completed = fetchedTodos.filter(
+    let filteredTodos = fetchedTodos;
+    if (selectedCategory !== "All") {
+      filteredTodos = fetchedTodos.filter(
+        (todo) => todo.category === selectedCategory
+      );
+    }
+    const pending = filteredTodos.filter((todo) => todo.status !== "completed");
+    const completed = filteredTodos.filter(
       (todo) => todo.status === "completed"
     );
 
     setPendingTodos(pending);
     setCompletedTodos(completed);
-  }, [todos]);
+  }, [todos, selectedCategory]);
 
   console.log("completed", completedTodos);
   console.log("pending", pendingTodos);
@@ -113,8 +121,9 @@ const index = () => {
         }}
       >
         <Pressable
+          onPress={() => setSelectedCategory("All")}
           style={{
-            backgroundColor: "#7CB9E8",
+            backgroundColor: selectedCategory === "All" ? "#0468A4" : "#7CB9E8",
             paddingHorizontal: 10,
             paddingVertical: 6,
             borderRadius: 25,
@@ -125,8 +134,10 @@ const index = () => {
           <Text style={{ color: "white", textAlign: "center" }}>All</Text>
         </Pressable>
         <Pressable
+          onPress={() => setSelectedCategory("Work")}
           style={{
-            backgroundColor: "#7CB9E8",
+            backgroundColor:
+              selectedCategory === "Work" ? "#0468A4" : "#7CB9E8",
             paddingHorizontal: 10,
             paddingVertical: 6,
             borderRadius: 25,
@@ -137,8 +148,10 @@ const index = () => {
           <Text style={{ color: "white", textAlign: "center" }}>Work</Text>
         </Pressable>
         <Pressable
+          onPress={() => setSelectedCategory("Personal")}
           style={{
-            backgroundColor: "#7CB9E8",
+            backgroundColor:
+              selectedCategory === "Personal" ? "#0468A4" : "#7CB9E8",
             paddingHorizontal: 10,
             paddingVertical: 6,
             borderRadius: 25,
@@ -162,18 +175,18 @@ const index = () => {
 
               {pendingTodos?.map((item, index) => (
                 <Pressable
-                  onPress={() => {
-                    router?.push({
-                      pathname: "/home/info",
-                      params: {
-                        id: item._id,
-                        title: item?.title,
-                        category: item?.category,
-                        createdAt: item?.createdAt,
-                        dueDate: item?.dueDate,
-                      },
-                    });
-                  }}
+                  // onPress={() => {
+                  //   router?.push({
+                  //     pathname: "/home/info",
+                  //     params: {
+                  //       id: item._id,
+                  //       title: item?.title,
+                  //       category: item?.category,
+                  //       createdAt: item?.createdAt,
+                  //       dueDate: item?.dueDate,
+                  //     },
+                  //   });
+                  // }}
                   style={{
                     backgroundColor: "#E0E0E0",
                     padding: 10,
@@ -387,8 +400,22 @@ const index = () => {
             }}
           >
             <Pressable
+              onPress={() => setCategory("All")}
+              style={{
+                backgroundColor: category === "All" ? "#6AA6D6" : "white",
+                borderColor: "#E0E0E0",
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+                borderWidth: 1,
+                borderRadius: 25,
+              }}
+            >
+              <Text>All</Text>
+            </Pressable>
+            <Pressable
               onPress={() => setCategory("Work")}
               style={{
+                backgroundColor: category === "Work" ? "#6AA6D6" : "white",
                 borderColor: "#E0E0E0",
                 paddingHorizontal: 10,
                 paddingVertical: 4,
@@ -401,6 +428,7 @@ const index = () => {
             <Pressable
               onPress={() => setCategory("Personal")}
               style={{
+                backgroundColor: category === "Personal" ? "#6AA6D6" : "white",
                 borderColor: "#E0E0E0",
                 paddingHorizontal: 10,
                 paddingVertical: 4,
@@ -409,18 +437,6 @@ const index = () => {
               }}
             >
               <Text>Personal</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => setCategory("WishList")}
-              style={{
-                borderColor: "#E0E0E0",
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-                borderWidth: 1,
-                borderRadius: 25,
-              }}
-            >
-              <Text>WishList</Text>
             </Pressable>
           </View>
 
