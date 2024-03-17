@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../redux/userRedux";
+import { loginSuccess } from "../../redux/userRedux";
 
 const WelcomeScreen = () => {
   const router = useRouter();

@@ -13,7 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { loginFailure, loginSuccess, loginStart } from "../redux/userRedux";
+import { loginFailure, loginSuccess, loginStart } from "../../redux/userRedux";
 import { useDispatch } from "react-redux";
 
 const login = () => {
