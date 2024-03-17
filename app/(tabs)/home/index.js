@@ -267,7 +267,15 @@ const index = () => {
                         >
                           {item?.title}
                         </Text>
-                        <Feather name="flag" size={20} color="gray" />
+                        <Feather
+                          onPress={async () => {
+                            await deleteTodo(user?._id, item?._id, dispatch);
+                            getTodos(user._id, dispatch);
+                          }}
+                          name="trash-2"
+                          size={20}
+                          color="gray"
+                        />
                       </View>
                     </Pressable>
                   ))}
