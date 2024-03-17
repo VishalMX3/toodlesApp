@@ -11,7 +11,6 @@ const WelcomeScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("entering welcome useefct");
     const checkLoginStatus = async () => {
       try {
         const token = await AsyncStorage.getItem("authToken");
