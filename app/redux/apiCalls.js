@@ -41,12 +41,13 @@ export const addTodo = async (userId, todoData, dispatch) => {
   }
 };
 
-export const toggleTodo = async (todoId, dispatch) => {
+export const toggleTodo = async (todoId, status, dispatch) => {
   dispatch(toggleTodoStart());
 
   try {
     const response = await axios.patch(
-      `https://toodlesapp.onrender.com/todos/${todoId}/complete`
+      `https://toodlesapp.onrender.com/todos/${todoId}/status`,
+      { status }
     );
     console.log(response.data);
     dispatch(toggleTodoSuccess(response.data.todo));

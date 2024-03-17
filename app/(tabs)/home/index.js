@@ -37,6 +37,8 @@ const index = () => {
   const [pendingTodos, setPendingTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const dispatch = useDispatch();
+  const [isToggled, setIsToggled] = useState(false);
+
   const todos = useSelector((state) => state.todos.todos);
   const user = useSelector((state) => state.user.currentUser.user);
 
@@ -83,7 +85,7 @@ const index = () => {
     if (user && user._id) {
       getTodos(user._id, dispatch);
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, isToggled]);
 
   useEffect(() => {
     const fetchedTodos = todos || [];
@@ -188,7 +190,10 @@ const index = () => {
                     }}
                   >
                     <Entypo
-                      onPress={() => toggleTodo(item?._id, dispatch)}
+                      onPress={async () => {
+                        await toggleTodo(item?._id, "completed", dispatch);
+                        setIsToggled((prevState) => !prevState); // Toggle the isToggled state
+                      }}
                       name="circle"
                       size={18}
                       color="black"
@@ -257,7 +262,15 @@ const index = () => {
                           gap: 10,
                         }}
                       >
-                        <FontAwesome name="circle" size={18} color="gray" />
+                        <Entypo
+                          onPress={async () => {
+                            await toggleTodo(item?._id, "pending", dispatch);
+                            setIsToggled((prevState) => !prevState); // Toggle the isToggled state
+                          }}
+                          name="circle"
+                          size={18}
+                          color="gray"
+                        />
                         <Text
                           style={{
                             flex: 1,

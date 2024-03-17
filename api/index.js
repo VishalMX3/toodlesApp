@@ -128,14 +128,15 @@ app.get("/users/:userId/todos", async (req, res) => {
   }
 });
 
-app.patch("/todos/:todoId/complete", async (req, res) => {
+app.patch("/todos/:todoId/status", async (req, res) => {
   try {
     const todoId = req.params.todoId;
+    const { status } = req.body;
 
     const updatedTodo = await Todo.findByIdAndUpdate(
       todoId,
       {
-        status: "completed",
+        status,
       },
       { new: true }
     );
