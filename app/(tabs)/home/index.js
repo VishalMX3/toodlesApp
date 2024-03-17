@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   ScrollView,
@@ -42,6 +43,7 @@ const index = () => {
 
   const todos = useSelector((state) => state.todos.todos);
   const user = useSelector((state) => state.user.currentUser.user);
+  const { isFetching, error } = useSelector((state) => state.todos);
 
   const suggestions = [
     {
@@ -114,6 +116,7 @@ const index = () => {
       <View
         style={{
           marginHorizontal: 10,
+          height: 40,
           marginVertical: 10,
           flexDirection: "row",
           alignItems: "center",
@@ -162,6 +165,7 @@ const index = () => {
         >
           <Text style={{ color: "white", textAlign: "center" }}>Personal</Text>
         </Pressable>
+        {isFetching && <ActivityIndicator size="large" color="#0000ff" />}
         <Pressable onPress={() => setModalVisible(!isModalVisible)}>
           <Feather name="plus-circle" size={30} color="#007FFF" />
         </Pressable>

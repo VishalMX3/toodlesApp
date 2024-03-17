@@ -31,10 +31,9 @@ const register = () => {
       .post("https://toodlesapp.onrender.com/register", user)
       .then((response) => {
         console.log(response);
-        Alert.alert(
-          "Registration successfull",
-          "You have been registered succesfully"
-        );
+        Alert.alert("Registration successfull", "You can now login", [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
         setEmail("");
         setPassword("");
         setName("");
