@@ -40,7 +40,7 @@ Profile Tab - Shows a statistics of total tasks, total pending tasks and total c
 Created two endpoints /register and /login in REST API.
 
 User Register - User info is sent to /register endpoint where it get saved in the MongoDB cloud database using the User Model.
-![alt text](assets/image.png)
+![register](assets/register.png)
 
 User Login - User info is sent to /login endpoint where it finds the user by email and checks for correct password. On successful login the API sends back a unique authorization token (using JWT sign) which we store in async storage for that user.
 
