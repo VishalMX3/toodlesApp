@@ -55,13 +55,13 @@ const register = () => {
     >
       <View style={{ marginTop: 80 }}>
         <Text style={{ fontSize: 18, fontWeight: "600", color: "#0066b2" }}>
-          TODO-LIST TRACKER
+          Toodles App
         </Text>
       </View>
       <KeyboardAvoidingView>
         <View style={{ alignItems: "center" }}>
           <Text style={{ fontSize: 16, fontWeight: "600", marginTop: 20 }}>
-            register to your account
+            Register your account
           </Text>
         </View>
 
@@ -162,7 +162,7 @@ const register = () => {
             onPress={handleRegister}
             style={{
               width: 200,
-              backgroundColor: "#6699CC",
+              backgroundColor: "#03387E",
               padding: 15,
               borderRadius: 6,
               marginLeft: "auto",

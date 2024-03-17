@@ -22,22 +22,6 @@ const login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const checkLoginStatus = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem("authToken");
-  //       const user = JSON.parse(await AsyncStorage.getItem("user"));
-  //       if (token !== null && user !== null) {
-  //         dispatch(loginSuccess({ user, token }));
-  //         router.replace("/(tabs)/home");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   checkLoginStatus();
-  // }, []);
-
   const handleLogin = () => {
     const user = {
       email: email,
@@ -68,7 +52,7 @@ const login = () => {
     >
       <View style={{ marginTop: 80 }}>
         <Text style={{ fontSize: 18, fontWeight: "600", color: "#0066b2" }}>
-          TODO-LIST TRACKER
+          Toodles App
         </Text>
       </View>
       <KeyboardAvoidingView>
@@ -160,7 +144,7 @@ const login = () => {
             onPress={handleLogin}
             style={{
               width: 200,
-              backgroundColor: "#6699CC",
+              backgroundColor: "#03387E",
               padding: 15,
               borderRadius: 6,
               marginLeft: "auto",

@@ -39,6 +39,8 @@ const WelcomeScreen = () => {
       ]}
       style={styles.container}
     >
+      <Text style={styles.creator}>Welcome To</Text>
+      <Text style={styles.heading}>Toodles App</Text>
       <Image
         source={{
           uri: "https://firebasestorage.googleapis.com/v0/b/e-shop-74124.appspot.com/o/task.png?alt=media&token=9a8d0a19-546e-40c6-8d4c-7f1d355d734a",
@@ -64,11 +66,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
   },
+  heading: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#0C1E31",
+    marginTop: -50,
+  },
   quote: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#0C1E31",
-    marginBottom: 20,
+    marginBottom: 15,
     textAlign: "center",
   },
   creator: {
