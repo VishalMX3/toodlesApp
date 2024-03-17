@@ -42,8 +42,10 @@ const register = () => {
       .catch((error) => {
         Alert.alert(
           "Registration failed",
-          "an error ocurred during registration"
+          "an error ocurred during registration",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }]
         );
+
         console.log("error", error);
       });
   };
