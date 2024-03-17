@@ -72,7 +72,12 @@ const index = () => {
         </View>
         <Pressable
           onPress={handleLogout}
-          style={{ padding: 10, backgroundColor: "#f00", borderRadius: 5 }}
+          style={{
+            padding: 10,
+            backgroundColor: "blue",
+            borderRadius: 5,
+            marginLeft: "auto",
+          }}
         >
           <Text style={{ color: "#fff" }}>Logout</Text>
         </Pressable>
