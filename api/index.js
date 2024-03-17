@@ -109,7 +109,7 @@ app.post("/todos/:userId", async (req, res) => {
 
     res.status(200).json({ message: "Todo added sucessfully", todo: newTodo });
   } catch (error) {
-    res.status(200).json({ message: "Todo not added" });
+    res.status(500).json({ message: "Todo not added" });
   }
 });
 
@@ -196,13 +196,16 @@ app.delete("/todos/:userId/:todoId/delete", async (req, res) => {
       res.status(404).json({ error: "User not found" });
     }
 
+    // Remove the todoId from the user's todos array
+    user.todos = user.todos.filter((id) => id.toString() !== todoId);
+
+    // Save the user
+    await user.save();
+
     const deletedTodo = await Todo.findByIdAndDelete(todoId);
     if (!deletedTodo) {
       return res.status(404).json({ error: "Todo not found" });
     }
-
-    user.todos = user.todos.filter((todo) => todo._id !== todoId);
-    await user.save();
 
     res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {
