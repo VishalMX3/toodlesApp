@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   creator: {
     fontSize: 14,
-    color: "#gary",
+    color: "gray",
     marginBottom: 40,
   },
   buttonContainer: {
