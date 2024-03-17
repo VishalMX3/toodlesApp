@@ -54,7 +54,17 @@ const index = () => {
   console.log("comp", completedTasks);
   console.log("pending", pendingTasks);
   return (
-    <View style={{ padding: 10, flex: 1, backgroundColor: "white" }}>
+    <View
+      style={{
+        padding: 10,
+        flex: 1,
+        backgroundColor: "white",
+        justifyContent: "center",
+        // alignItems: "center",
+        gap: 10,
+        flexWrap: "wrap",
+      }}
+    >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <Image
           style={{ width: 60, height: 60, borderRadius: 30 }}
@@ -83,19 +93,20 @@ const index = () => {
         </Pressable>
       </View>
 
-      <View style={{ marginVertical: 12 }}>
+      <View style={{ marginVertical: 12, gap: 36 }}>
         <Text>Tasks Overview</Text>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: "column",
             alignItems: "center",
-            gap: 6,
+            gap: 10,
             marginVertical: 8,
           }}
         >
           <View
             style={{
-              backgroundColor: "#89CFF0",
+              backgroundColor: "#F6FF6B",
+              width: "100%",
               padding: 10,
               borderRadius: 8,
               flex: 1,
@@ -112,8 +123,9 @@ const index = () => {
           </View>
           <View
             style={{
-              backgroundColor: "#89CFF0",
+              backgroundColor: "#66FF98",
               padding: 10,
+              width: "100%",
               borderRadius: 8,
               flex: 1,
               justifyContent: "center",
@@ -130,7 +142,7 @@ const index = () => {
         </View>
       </View>
 
-      <LineChart
+      {/* <LineChart
         data={{
           labels: ["Pending Tasks", "Completed Tasks"],
           datasets: [
@@ -164,7 +176,7 @@ const index = () => {
         style={{
           borderRadius: 16,
         }}
-      />
+      /> */}
 
       <View
         style={{
@@ -174,8 +186,8 @@ const index = () => {
           marginTop: 15,
         }}
       >
-        <Text style={{ textAlign: "center", color: "white" }}>
-          All the best. Do your best !
+        <Text style={{ textAlign: "center", color: "black" }}>
+          Doing Your best is enough, {user.name}!
         </Text>
       </View>
 
@@ -189,7 +201,7 @@ const index = () => {
         <Image
           style={{ width: 120, height: 120 }}
           source={{
-            uri: "https://cdn-icons-png.flaticon.com/128/9537/9537221.png",
+            uri: "https://firebasestorage.googleapis.com/v0/b/e-shop-74124.appspot.com/o/task.png?alt=media&token=9a8d0a19-546e-40c6-8d4c-7f1d355d734a",
           }}
         />
       </View>
