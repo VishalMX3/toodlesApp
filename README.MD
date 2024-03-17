@@ -26,11 +26,11 @@ This will also show you a QR code in terminal which can be used in _Expo App_ to
 
 There are 3 tabs - home, calendar and profile.
 
-_Home tab_ - View tasks for today, add tasks, mark them as completed/pending, view category-wise tasks
+`Home` - View tasks for today, add tasks, mark them as completed/pending, view category-wise tasks. Tasks are saved on mongoDB database specific for each user.
 
-_Calendar tab_ - Shows us the tasks completed for a particular date.
+`Calendar tab` - Shows us the tasks completed for a particular date.
 
-_Profile Tab_ - Shows a statistics of total tasks, total pending tasks and total completed tasks. Logout functionality here.
+`Profile Tab` - Shows a statistics of total tasks, total pending tasks and total completed tasks. Logout functionality here.
 
 ## User registration and login authorization
 
@@ -80,8 +80,8 @@ useEffect(() => {
 
 ## Integrating Redux for State Management and CRUD operataions on tasks
 
-> Used react-redux and @reduxjs/toolkit toolkit.
-> Created global states for `user` and `todos` that can be accessed from a global store.
+- Used react-redux and @reduxjs/toolkit toolkit.
+- Created global states for `user` and `todos` that can be accessed from a global store.
 
 ```javascript
 import { configureStore } from "@reduxjs/toolkit";
@@ -96,7 +96,7 @@ export default configureStore({
 });
 ```
 
-> Implemented createSlice feauture from @reduxjs/toolkit and useSelector and useDispatch hooks from react-redux.
+- Implemented createSlice feauture from @reduxjs/toolkit and useSelector and useDispatch hooks from react-redux.
 
 ```javascript
 import { createSlice } from "@reduxjs/toolkit";
@@ -135,9 +135,6 @@ https://toodlesapp.onrender.com/
 
 ## Screenshots of working application
 
-![welcome](assets/welcome.png)
-![login](assets/login.png)
-![register-s](assets/register-s.png)
-![home](assets/home.png)
-![calendar](assets/calendar.png)
-![profile](assets/profile.png)
+![welcome](assets/welcome.png) ![login](assets/login.png)
+![register-s](assets/register-s.png) ![home](assets/home.png)
+![calendar](assets/calendar.png) ![profile](assets/profile.png)
