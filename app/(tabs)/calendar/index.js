@@ -83,7 +83,7 @@ const index = () => {
             >
               {item?.title}
             </Text>
-            <Feather name="flag" size={20} color="gray" />
+            {/* <Feather name="flag" size={20} color="gray" /> */}
           </View>
         </Pressable>
       ))}
