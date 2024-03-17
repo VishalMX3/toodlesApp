@@ -29,17 +29,18 @@ npx expo start --web
 
 There are 3 tabs - home, calendar and profile.
 
-Home tab - View tasks for today, add tasks, mark them as completd, view info for each task
+Home tab - View tasks for today, add tasks, mark them as completed/pending, view category-wise tasks
 
 Calendar tab - Shows us the tasks completed for a particular date.
 
-Profile Tab - Shows a statistics of total pending tasks and total completed tasks. It compares these two visually using `react-native-chart-kit`
+Profile Tab - Shows a statistics of total tasks, total pending tasks and total completed tasks. Logout here.
 
 ## User registration and login authorization
 
 Created two endpoints /register and /login in REST API.
 
 User Register - User info is sent to /register endpoint where it get saved in the MongoDB cloud database using the User Model.
+![alt text](assets/image.png)
 
 User Login - User info is sent to /login endpoint where it finds the user by email and checks for correct password. On successful login the API sends back a unique authorization token (using JWT sign) which we store in async storage for that user.
 
