@@ -2,26 +2,24 @@ import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LineChart } from "react-native-chart-kit";
+import { useSelector } from "react-redux";
 
 const index = () => {
   const [completedTasks, setCompletedTasks] = useState(0);
   const [pendingTasks, setPendingTasks] = useState(0);
+  const todos = useSelector((state) => state.todos.todos);
+  const user = useSelector((state) => state.user.currentUser.user);
+  const totalCompletedTasks = todos.filter(
+    (todo) => todo.status === "completed"
+  ).length;
+  const totalPendingTasks = todos.filter(
+    (todo) => todo.status === "pending"
+  ).length;
 
-  const fetchTaskData = async () => {
-    try {
-      const response = await axios.get(
-        "https://toodlesapp.onrender.com/todos/count"
-      );
-      const { totalCompletedTodos, totalPendingTodos } = response.data;
-      setCompletedTasks(totalCompletedTodos);
-      setPendingTasks(totalPendingTodos);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
   useEffect(() => {
-    fetchTaskData();
-  }, []);
+    setCompletedTasks(totalCompletedTasks);
+    setPendingTasks(totalPendingTasks);
+  }, [todos]);
   console.log("comp", completedTasks);
   console.log("pending", pendingTasks);
   return (
@@ -66,11 +64,10 @@ const index = () => {
             <Text
               style={{ textAlign: "center", fontSize: 16, fontWeight: "bold" }}
             >
-              {completedTasks}
+              {pendingTasks}
             </Text>
-            <Text style={{ marginTop: 4 }}>completed tasks</Text>
+            <Text style={{ marginTop: 4 }}>pending tasks</Text>
           </View>
-
           <View
             style={{
               backgroundColor: "#89CFF0",
@@ -84,9 +81,9 @@ const index = () => {
             <Text
               style={{ textAlign: "center", fontSize: 16, fontWeight: "bold" }}
             >
-              {pendingTasks}
+              {completedTasks}
             </Text>
-            <Text style={{ marginTop: 4 }}>pending tasks</Text>
+            <Text style={{ marginTop: 4 }}>completed tasks</Text>
           </View>
         </View>
       </View>
