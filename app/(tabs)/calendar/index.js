@@ -4,27 +4,30 @@ import moment from "moment";
 import { Calendar } from "react-native-calendars";
 import axios from "axios";
 import { FontAwesome, Feather, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
 
 const index = () => {
   const today = moment().format("YYYY-MM-DD");
   const [selectedDate, setSelectedDate] = useState(today);
-  const [todos, setTodos] = useState([]);
-  const fetchCompletedTodos = async () => {
-    try {
-      const response = await axios.get(
-        `https://toodlesapp.onrender.com/todos/completed/${selectedDate}`
-      );
+  // const [todos, setTodos] = useState([]);
+  const todos = useSelector((state) => state.todos.todos);
+  const user = useSelector((state) => state.user.currentUser.user);
+  const [completedTodos, setCompletedTodos] = useState([]);
 
-      const completedTodos = response.data.completedTodos || [];
-      setTodos(completedTodos);
-    } catch (error) {
-      console.log("error", error);
-    }
+  const fetchCompletedTodos = () => {
+    const filteredTodos = todos.filter(
+      (todo) =>
+        moment(todo.createdAt).format("YYYY-MM-DD") === selectedDate &&
+        todo.status === "completed"
+    );
+
+    setCompletedTodos(filteredTodos);
   };
+
   useEffect(() => {
     fetchCompletedTodos();
-  }, [selectedDate]);
-  console.log(todos);
+  }, [selectedDate, todos]);
+
   const handleDayPress = (day) => {
     setSelectedDate(day.dateString);
   };
@@ -52,7 +55,7 @@ const index = () => {
         <MaterialIcons name="arrow-drop-down" size={24} color="black" />
       </View>
 
-      {todos?.map((item, index) => (
+      {completedTodos?.map((item, index) => (
         <Pressable
           style={{
             backgroundColor: "#E0E0E0",
