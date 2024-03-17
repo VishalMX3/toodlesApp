@@ -51,8 +51,8 @@ const index = () => {
       dispatch(logoutFailure());
     }
   };
-  console.log("comp", completedTasks);
-  console.log("pending", pendingTasks);
+  // console.log("comp", completedTasks);
+  // console.log("pending", pendingTasks);
   return (
     <View
       style={{

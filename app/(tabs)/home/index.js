@@ -85,7 +85,7 @@ const index = () => {
   };
 
   useEffect(() => {
-    console.log("running useEffect");
+    // console.log("running useEffect");
     if (user && user._id) {
       getTodos(user._id, dispatch);
     }
@@ -108,8 +108,8 @@ const index = () => {
     setCompletedTodos(completed);
   }, [todos, selectedCategory]);
 
-  console.log("completed", completedTodos);
-  console.log("pending", pendingTodos);
+  // console.log("completed", completedTodos);
+  // console.log("pending", pendingTodos);
 
   return (
     <>

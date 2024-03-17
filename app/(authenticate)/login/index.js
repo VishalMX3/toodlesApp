@@ -36,7 +36,7 @@ const login = () => {
       .post("https://toodlesapp.onrender.com/login", user)
       .then((response) => {
         const token = response.data.token;
-        console.log("token", token);
+        // console.log("token", token);
         AsyncStorage.setItem("authToken", token);
         AsyncStorage.setItem("user", JSON.stringify(response.data.user));
         dispatch(loginSuccess(response.data));

@@ -30,7 +30,7 @@ const register = () => {
     axios
       .post("https://toodlesapp.onrender.com/register", user)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         Alert.alert("Registration successfull", "You can now login", [
           { text: "OK", onPress: () => console.log("OK Pressed") },
         ]);

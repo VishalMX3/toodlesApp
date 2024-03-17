@@ -20,7 +20,7 @@ export const getTodos = async (userId, dispatch) => {
     const res = await axios.get(
       `https://toodlesapp.onrender.com/users/${userId}/todos`
     );
-    console.log(res.data);
+    // console.log(res.data);
     dispatch(getTodosSuccess(res.data.todos));
   } catch (error) {
     dispatch(getTodosFailure());
@@ -34,7 +34,7 @@ export const addTodo = async (userId, todoData, dispatch) => {
       `https://toodlesapp.onrender.com/todos/${userId}`,
       todoData
     );
-    console.log(res.data);
+    // console.log(res.data);
     dispatch(addTodoSuccess(res.data.todo));
   } catch (error) {
     dispatch(addTodoFailure());
@@ -49,7 +49,7 @@ export const toggleTodo = async (todoId, status, dispatch) => {
       `https://toodlesapp.onrender.com/todos/${todoId}/status`,
       { status }
     );
-    console.log(response.data);
+    // console.log(response.data);
     dispatch(toggleTodoSuccess(response.data.todo));
   } catch (error) {
     dispatch(toggleTodoFailure());
@@ -63,7 +63,7 @@ export const deleteTodo = async (userId, todoId, dispatch) => {
     const response = await axios.delete(
       `https://toodlesapp.onrender.com/todos/${userId}/${todoId}/delete`
     );
-    console.log(response.data);
+    // console.log(response.data);
     dispatch(deleteTodoSuccess(response.data.todo));
   } catch (error) {
     dispatch(deleteTodoFailure());
