@@ -22,21 +22,21 @@ const login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const token = await AsyncStorage.getItem("authToken");
-        const user = JSON.parse(await AsyncStorage.getItem("user"));
-        if (token !== null && user !== null) {
-          dispatch(loginSuccess({ user, token }));
-          router.replace("/(tabs)/home");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    checkLoginStatus();
-  }, []);
+  // useEffect(() => {
+  //   const checkLoginStatus = async () => {
+  //     try {
+  //       const token = await AsyncStorage.getItem("authToken");
+  //       const user = JSON.parse(await AsyncStorage.getItem("user"));
+  //       if (token !== null && user !== null) {
+  //         dispatch(loginSuccess({ user, token }));
+  //         router.replace("/(tabs)/home");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   checkLoginStatus();
+  // }, []);
 
   const handleLogin = () => {
     const user = {

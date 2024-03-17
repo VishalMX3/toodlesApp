@@ -45,7 +45,7 @@ const index = () => {
 
       await AsyncStorage.removeItem("authToken");
       await AsyncStorage.removeItem("user");
-      router.replace("/login");
+      router.replace("/welcome");
       dispatch(logoutSuccess());
     } catch (error) {
       dispatch(logoutFailure());
