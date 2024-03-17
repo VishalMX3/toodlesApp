@@ -12,10 +12,18 @@ import { LineChart } from "react-native-chart-kit";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import {
+  logoutFailure,
+  logoutSuccess,
+  logoutStart,
+} from "../../redux/userRedux";
+import { useDispatch } from "react-redux";
 
 const index = () => {
   const [completedTasks, setCompletedTasks] = useState(0);
   const [pendingTasks, setPendingTasks] = useState(0);
+  const dispatch = useDispatch();
+
   const todos = useSelector((state) => state.todos.todos);
   const user = useSelector((state) => state.user.currentUser.user);
   const router = useRouter();
@@ -32,10 +40,16 @@ const index = () => {
   }, [todos]);
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem("authToken");
-    await AsyncStorage.removeItem("user");
-    router.replace("/login");
-    // Navigate to login screen or refresh the app
+    try {
+      dispatch(logoutStart());
+
+      await AsyncStorage.removeItem("authToken");
+      await AsyncStorage.removeItem("user");
+      router.replace("/login");
+      dispatch(logoutSuccess());
+    } catch (error) {
+      dispatch(logoutFailure());
+    }
   };
   console.log("comp", completedTasks);
   console.log("pending", pendingTasks);
