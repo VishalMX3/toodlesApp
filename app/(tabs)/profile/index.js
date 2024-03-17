@@ -1,14 +1,24 @@
-import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LineChart } from "react-native-chart-kit";
 import { useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 
 const index = () => {
   const [completedTasks, setCompletedTasks] = useState(0);
   const [pendingTasks, setPendingTasks] = useState(0);
   const todos = useSelector((state) => state.todos.todos);
   const user = useSelector((state) => state.user.currentUser.user);
+  const router = useRouter();
   const totalCompletedTasks = todos.filter(
     (todo) => todo.status === "completed"
   ).length;
@@ -20,6 +30,13 @@ const index = () => {
     setCompletedTasks(totalCompletedTasks);
     setPendingTasks(totalPendingTasks);
   }, [todos]);
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem("authToken");
+    await AsyncStorage.removeItem("user");
+    router.replace("/login");
+    // Navigate to login screen or refresh the app
+  };
   console.log("comp", completedTasks);
   console.log("pending", pendingTasks);
   return (
@@ -39,6 +56,12 @@ const index = () => {
             Your total tasks: {todos.length}
           </Text>
         </View>
+        <Pressable
+          onPress={handleLogout}
+          style={{ padding: 10, backgroundColor: "#f00", borderRadius: 5 }}
+        >
+          <Text style={{ color: "#fff" }}>Logout</Text>
+        </Pressable>
       </View>
 
       <View style={{ marginVertical: 12 }}>
