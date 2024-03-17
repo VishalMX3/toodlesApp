@@ -24,7 +24,7 @@ export const todoSlice = createSlice({
 
     //ADD
     addTodoStart: (state) => {
-      state.isFetching = true;
+      // state.isFetching = true;
       state.error = false;
     },
     addTodoSuccess: (state, action) => {
@@ -38,7 +38,7 @@ export const todoSlice = createSlice({
 
     //Toggle
     toggleTodoStart: (state) => {
-      state.isFetching = true;
+      // state.isFetching = true;
       state.error = false;
     },
     toggleTodoSuccess: (state, action) => {
@@ -56,7 +56,7 @@ export const todoSlice = createSlice({
 
     //Delete
     deleteTodoStart: (state) => {
-      state.isFetching = true;
+      // state.isFetching = true;
       state.error = false;
     },
     deleteTodoSuccess: (state, action) => {
