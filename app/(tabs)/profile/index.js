@@ -28,15 +28,15 @@ const index = () => {
         <Image
           style={{ width: 60, height: 60, borderRadius: 30 }}
           source={{
-            uri: "https://lh3.googleusercontent.com/ogw/ANLem4Zmk7fohWyH7kB6YArqFy0WMfXnFtuX3PX3LSBf=s64-c-mo",
+            uri: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/3c9f4a40760693.578c9a4699778.gif",
           }}
         />
         <View>
           <Text style={{ fontSize: 16, fontWeight: "600" }}>
-            Keep plans for 15 days
+            Hi {user.name}
           </Text>
           <Text style={{ fontSize: 15, color: "gray", marginTop: 4 }}>
-            Select Categories
+            Your total tasks: {todos.length}
           </Text>
         </View>
       </View>
@@ -133,7 +133,7 @@ const index = () => {
         }}
       >
         <Text style={{ textAlign: "center", color: "white" }}>
-          Tasks for the next seven days
+          All the best. Do your best !
         </Text>
       </View>
 
