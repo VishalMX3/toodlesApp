@@ -62,7 +62,7 @@ const index = () => {
         justifyContent: "center",
         // alignItems: "center",
         gap: 10,
-        flexWrap: "wrap",
+        // flexWrap: "wrap",
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
@@ -109,7 +109,7 @@ const index = () => {
               width: "100%",
               padding: 10,
               borderRadius: 8,
-              flex: 1,
+              // flex: 1,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -127,7 +127,7 @@ const index = () => {
               padding: 10,
               width: "100%",
               borderRadius: 8,
-              flex: 1,
+              // flex: 1,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -142,52 +142,19 @@ const index = () => {
         </View>
       </View>
 
-      {/* <LineChart
-        data={{
-          labels: ["Pending Tasks", "Completed Tasks"],
-          datasets: [
-            {
-              data: [pendingTasks, completedTasks],
-            },
-          ],
-        }}
-        width={Dimensions.get("window").width - 20} // from react-native
-        height={220}
-        // yAxisLabel="$"
-        // yAxisSuffix="k"
-        yAxisInterval={2} // optional, defaults to 1
-        chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
-          decimalPlaces: 0, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726",
-          },
-        }}
-        bezier
-        style={{
-          borderRadius: 16,
-        }}
-      /> */}
-
       <View
         style={{
+          // flex: 1,
           backgroundColor: "#89CFF0",
           padding: 10,
           borderRadius: 6,
           marginTop: 15,
+          height: 50,
+          alignItems: "center",
         }}
       >
-        <Text style={{ textAlign: "center", color: "black" }}>
-          Doing Your best is enough, {user.name}!
+        <Text style={{ textAlign: "center", color: "black", fontSize: 20 }}>
+          Doing your best is enough, {user.name}!
         </Text>
       </View>
 
