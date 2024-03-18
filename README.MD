@@ -9,7 +9,7 @@ View the [Source Code](https://github.com/VishalMX3/toodlesApp).
 To run on pc web browser install node modules after cloning to your local pc
 
 ```bash
-yarn add
+yarn
 ```
 
 Run on _web_ using
